@@ -25,6 +25,7 @@ Our research addresses these limitations by proposing a model that:
 
 <details>
    <summary>Training</summary>
+
 ## Requirement
 
 ```shell
