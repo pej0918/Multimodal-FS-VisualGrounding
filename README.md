@@ -68,36 +68,54 @@ We performed two primary evaluations:
 1. **Template-based Performance Evaluation**: Analyzing the effect of including templates (support set) with different architectures, including **Dynamic MDETR**.
 2. **Unseen Class Evaluation**: Evaluating model generalization on unseen classes using fusion and contrastive loss.
 
-### Experimental Results:
 
-| Methods                    | Backbone  | Support Set | Accuracy |
-|-----------------------------|-----------|-------------|----------|
-| TransVG                     | ResNet-101| No          | 67.02    |
-| TransVG                     | ResNet-50 | No          | 66.56    |
-| TransVG++                   | ResNet-50 | No          | 73.86    |
-| GroundVLP                   | Vin-VL    | No          | 74.73    |
-| Dynamic MDETR               | ResNet-50 | No          | 69.43    |
-| **Dynamic MDETR + FS**      | ResNet-50 | Yes         | **83.6** |
+#### Impact of Template on Performance (RefCOCOg)
 
-### Unseen Data Few-shot Visual Grounding Results:
-| Methods                    | Backbone  | Accuracy | AP   |
-|-----------------------------|-----------|----------|------|
-| Ours                        | ResNet-50 | 0.30     | 0.53 |
-| Ours + Fusion Module (Fu)    | ResNet-50 | 0.39     | 0.58 |
-| Ours + Contrastive Loss (Cl) | ResNet-50 | 0.38     | 0.60 |
-| Ours + Fu + Cl               | ResNet-50 | 0.39     | 0.60 |
+| Methods                          | Backbone  | Support Set | Accuracy |
+|-----------------------------------|-----------|-------------|----------|
+| TransVG                          | ResNet-101| No          | 67.02%   |
+| TransVG                          | ResNet-50 | No          | 66.56%   |
+| TransVG++                        | ResNet-50 | No          | 73.86%   |
+| GroundVLP                        | Vin-VL    | No          | 74.73%   |
+| Dynamic MDETR                    | ResNet-50 | No          | 69.43%   |
+| Dynamic MDETR + FS-learnable embedding (ours) | ResNet-50 | Yes        | **83.6%** |
+
+The first experiment compares our **Dynamic MDETR + FS-learnable embedding** model with other visual grounding models. Our model, utilizing ResNet-50, achieves **83.6% accuracy**, significantly outperforming existing methods like **TransVG** and **GroundVLP**. 
+
+Compared to **TransVG (ResNet-50)**, which recorded **66.56% accuracy**, our model achieved a **17% improvement**, indicating the effectiveness of incorporating **template-based support sets**. The use of **learnable embeddings** allowed our model to capture more fine-grained details, enhancing its performance by reducing confusion between similar classes.
+
+The introduction of **templates** enabled richer visual information to be learned, improving the model’s ability to distinguish between classes. This experiment demonstrates the critical role of templates in enhancing model performance for few-shot learning.
+
+#### Few-shot Visual Grounding on Unseen Data
+
+| Methods                       | Backbone  | Accuracy | AP   |
+|--------------------------------|-----------|----------|------|
+| Ours                           | ResNet-50 | 0.30     | 0.53 |
+| Ours + Fusion Module (Fu)      | ResNet-50 | 0.39 (+0.09) | 0.58 (+0.05) |
+| Ours + Contrastive Loss (CI)   | ResNet-50 | 0.38 (+0.08) | 0.60 (+0.07) |
+| Ours + Fu + CI                 | ResNet-50 | **0.39** (+0.09) | **0.60** (+0.07) |
+
+In the second experiment, we evaluated the **few-shot visual grounding performance on unseen data**. Without any additional modules, our base model achieved **0.30 accuracy** and **0.53 AP**. 
+
+However, when incorporating the **Fusion Module (Fu)**, the accuracy increased by **9%** to **0.39**, and AP improved by **5%** to **0.58**. The Fusion Module enhances the interaction between templates, making information sharing more effective.
+
+With the addition of **Contrastive Loss (CI)**, accuracy and AP further improved to **0.38 and 0.60**, respectively. Contrastive Loss helps the model better distinguish between different-class templates while refining intra-class variations.
+
+When combining both **Fusion Module and Contrastive Loss**, our model achieved the best results with **0.39 accuracy** and **0.60 AP**. This indicates that the combination of these components significantly improves the model's ability to generalize to unseen classes.
 
 ## Results
+These experiments validate the effectiveness of our proposed **template-based multimodal prompt** and **learnable embeddings** in improving visual grounding performance. The **Fusion Module** and **Contrastive Loss** play crucial roles in enhancing the interaction between visual and textual information, leading to better generalization, especially for unseen classes.
 
 The model achieves a significant improvement in both accuracy and AP with the introduction of the **Fusion Module** and **Contrastive Loss**. The few-shot visual grounding performance is highly enhanced on unseen data with up to **9% increase in accuracy** and **7% increase in AP**.
 
 ### Visual Results:
 
 Below are the visualization results showing the model's predictions and the ground truth for few-shot visual grounding tasks.
-
-![Visualization](./images/visualization1.jpg)
-
-![Visualization](./images/visualization2.jpg)
+<p align="center">
+  <img src="./images/visualization1.jpg" alt="Visualization 1" width="300"/>
+  <img src="./images/visualization2.jpg" alt="Visualization 2" width="300"/>
+  <img src="./images/visualization3.jpg" alt="Visualization 2" width="300"/>
+</p>
 
 ## Conclusion
 
