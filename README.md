@@ -1,7 +1,3 @@
-Here’s the updated README with the inclusion of the architecture and visualization images:
-
----
-
 # Multimodal Few-shot Visual Grounding without Fine-tuning
 
 This repository provides the code and experimental results for **Multimodal Few-shot Visual Grounding** without the need for fine-tuning. The proposed model architecture introduces an effective method for visual grounding using **few-shot learning** with the **Dynamic MDETR** model and enhances its performance using **multimodal prompts**, **cross-attention**, and **contrastive loss**.
@@ -36,7 +32,7 @@ The core architecture builds on **Dynamic MDETR** (Dynamic Multimodal Transforme
 
 ### Architecture Overview
 
-![Architecture](images\model.jpg)
+![Architecture](./images/model.jpg)
 
 ### Key Modules:
 1. **Multimodal Prompt**: Combines image, text, and learnable embeddings for the template-based few-shot grounding.
@@ -99,9 +95,9 @@ The model achieves a significant improvement in both accuracy and AP with the in
 
 Below are the visualization results showing the model's predictions and the ground truth for few-shot visual grounding tasks.
 
-![Visualization](images\visualization1.jpg)
+![Visualization](./images/visualization1.jpg)
 
-![Visualization](images\visualization2.jpg)
+![Visualization](./images/visualization2.jpg)
 
 ## Conclusion
 
