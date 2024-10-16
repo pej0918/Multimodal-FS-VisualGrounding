@@ -6,7 +6,6 @@ This repository provides the code and experimental results for **Multimodal Few-
 
 - [Introduction](#introduction)
 - [Framework](#framework)
-- [Datasets](#datasets)
 - [Methodology](#methodology)
 - [Evaluation](#evaluation)
 - [Results](#results)
@@ -97,19 +96,6 @@ The core architecture builds on **Dynamic MDETR** (Dynamic Multimodal Transforme
 2. **Cross-Attention Mechanism**: Applies between image and text to improve template fusion.
 3. **Contrastive Loss**: Enhances the distinction between same-class and different-class templates.
 
-## Datasets
-
-We utilize two main datasets for pre-training and fine-tuning the model:
-- **Pre-training Dataset**: RefCOCO, Flickr30k
-- **Fine-tuning Dataset**: RefCOCOg
-
-### Dataset Statistics
-| Dataset       | #Images  | #Refer Expressions | Train Classes | Eval Classes |
-|---------------|----------|--------------------|---------------|--------------|
-| RefCOCO       | 19,994   | 142,209            | 70            | 10           |
-| Flickr30k     | 31,000   | 5 refer/image      | -             | -            |
-| RefCOCOg      | 25,799   | 142,209            | 70            | 10           |
-
 ## Methodology
 
 Our methodology introduces several key components for improving few-shot visual grounding:
@@ -121,6 +107,19 @@ Our methodology introduces several key components for improving few-shot visual 
 We apply **contrastive loss** to maximize inter-class variability and minimize intra-class differences for more robust feature learning.
 
 ## Evaluation
+
+### Datasets
+
+We utilize two main datasets for pre-training and fine-tuning the model:
+- **Pre-training Dataset**: RefCOCO, Flickr30k
+- **Fine-tuning Dataset**: RefCOCOg
+
+#### Dataset Statistics
+| Dataset       | #Images  | #Refer Expressions | Train Classes | Eval Classes |
+|---------------|----------|--------------------|---------------|--------------|
+| RefCOCO       | 19,994   | 142,209            | 70            | 10           |
+| Flickr30k     | 31,000   | 5 refer/image      | -             | -            |
+| RefCOCOg      | 25,799   | 142,209            | 70            | 10           |
 
 We performed two primary evaluations:
 1. **Template-based Performance Evaluation**: Analyzing the effect of including templates (support set) with different architectures, including **Dynamic MDETR**.
