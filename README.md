@@ -97,15 +97,18 @@ The proposed model is designed for **few-shot visual grounding**, leveraging **m
 **Multimodal prompts** are created using image features, text features, and learnable embeddings, which provide additional context for grounding. A **cross-attention fusion module** strengthens the interaction between the image and text, while **contrastive learning** further differentiates between classes to improve accuracy.
 
 
-## Methodology
+### Methodology
 
-Our methodology introduces several key components for improving few-shot visual grounding:
-1. **Multimodal Prompt Generation**: Templates are composed of visual and textual features combined with learnable embeddings.
-2. **Cross-Attention Fusion**: By leveraging cross-attention between image and text features, the model achieves better multimodal integration.
-3. **Contrastive Learning**: Helps differentiate between different-class templates while refining same-class templates.
+Our methodology introduces key techniques to enhance **few-shot visual grounding** performance. The core components include:
 
-### Loss Function:
-We apply **contrastive loss** to maximize inter-class variability and minimize intra-class differences for more robust feature learning.
+1. **Multimodal Prompt Generation**: We generate prompts by combining visual and textual features with learnable embeddings, allowing the model to leverage richer information during grounding tasks.
+  
+2. **Cross-Attention Fusion**: This module applies cross-attention between the image and text features, enhancing the integration of multimodal data to ensure more precise grounding.
+
+3. **Contrastive Learning**: This loss function improves class differentiation by maximizing inter-class differences and minimizing intra-class variations, making the model more robust in distinguishing between same-class and different-class templates.
+
+These innovations collectively improve the model's generalization ability, particularly in **few-shot learning** scenarios. 
+
 
 ## Datasets
 
