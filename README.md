@@ -6,22 +6,19 @@ We propose a model for  **Multimodal Few-shot Visual Grounding** without the nee
 
 - [Introduction](#introduction)
 - [Framework](#framework)
-- [Methodology](#methodology)
 - [Dataset](#Datasets)
 - [Evaluation](#evaluation)
 - [Results](#results)
 - [Conclusion](#conclusion)
-- [Future Works](#future-works)
-- [Contributions](#contributions)
 
 ## Introduction
 
-Visual grounding tasks aim to identify objects in images that correspond to a given textual query. Traditional methods rely on **large-scale datasets** and **fine-tuning** for every new class or domain, which is not ideal for few-shot learning scenarios.
+Visual grounding tasks aim to identify and locate objects in images based on a given textual query. Traditional methods often require large-scale datasets and extensive fine-tuning to adapt to new classes or domains, which limits their effectiveness in **few-shot learning** scenarios.
 
-Our research addresses these limitations by proposing a model that:
-1. Performs **few-shot visual grounding** without fine-tuning.
-2. Utilizes **learnable embeddings** to enable the model to generalize to unseen classes.
-3. Enhances performance using **cross-attention mechanisms** and **contrastive learning** for better multimodal integration.
+Our approach addresses these limitations by introducing a model that enables **few-shot visual grounding** without fine-tuning. The proposed architecture incorporates **multimodal prompts**, combining visual and textual features with **learnable embeddings**. Additionally, we use **cross-attention mechanisms** to enhance the interaction between image and text data, and **contrastive learning** to improve the differentiation between different-class templates, leading to better generalization to unseen classes.
+
+Our model not only reduces the need for data-intensive fine-tuning but also significantly improves performance in both familiar and unseen visual grounding tasks. 
+
 
 <details>
    <summary>Training</summary>
@@ -179,16 +176,7 @@ Below are the visualization results showing the model's predictions and the grou
 </p>
 
 ## Conclusion
+The proposed **few-shot visual grounding** model successfully addresses the challenges of traditional visual grounding by introducing a **multimodal prompt** mechanism, integrating **learnable embeddings**, and enhancing multimodal interaction through **cross-attention**. Additionally, the use of **contrastive learning** further refines class differentiation, improving the model's ability to generalize to unseen classes.
 
-The proposed model successfully addresses the challenges of few-shot visual grounding without fine-tuning by introducing:
-- **Multimodal prompts** with templates.
-- A **cross-attention fusion mechanism** for improved multimodal feature interaction.
-- **Contrastive learning** to enhance class differentiation.
-  
-The results demonstrate strong generalization abilities, with superior performance on unseen data.
+Experimental results demonstrate significant improvements in accuracy, especially on **unseen classes**, validating the effectiveness of the proposed architecture. This model offers a robust solution for **few-shot learning** tasks, showcasing potential applications in real-world scenarios with limited data, without the need for extensive fine-tuning.
 
-## Contributions
-
-- **Cross-Attention Fusion Module**: Enhances multimodal interaction between templates and queries.
-- **Learnable Embedding in Templates**: Allows for more dynamic and flexible feature learning.
-- **Contrastive Learning**: Maximizes the effectiveness of few-shot learning by enhancing class distinction.
