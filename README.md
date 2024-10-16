@@ -145,7 +145,7 @@ The introduction of **templates** enabled richer visual information to be learne
 
 #### Few-shot Visual Grounding on Unseen Data
 
-| Methods                       | Backbone  | Accuracy | AP   |
+| Methods                       | Backbone  | Acc@50 | AP@50   |
 |--------------------------------|-----------|----------|------|
 | Ours                           | ResNet-50 | 0.30     | 0.53 |
 | Ours + Fusion Module (Fu)      | ResNet-50 | 0.39 (+0.09) | 0.58 (+0.05) |
