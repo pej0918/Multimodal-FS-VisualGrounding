@@ -79,13 +79,12 @@ python -m torch.distributed.launch --nproc_per_node=8 --use_env eval.py --model_
 </details>
 
 ## Framework
-
-The core architecture builds on **Dynamic MDETR** (Dynamic Multimodal Transformer Decoder for Visual Grounding). We integrate the following components:
+For **Few-shot Visual Grounding**, we introduce a model architecture built on **Dynamic MDETR** that integrates:
 - **Multimodal Prompts**: Each template is composed of image features, text features, and a learnable embedding.
 - **Cross-Attention Fusion Module**: This module allows for stronger interaction between the image and text modalities through bidirectional cross-attention.
 - **Contrastive Loss**: Helps to maximize the difference between different-class templates and minimize intra-class template differences, further improving few-shot generalization.
 
-### Architecture Overview
+### Overview
 
 ![Architecture](./images/model.jpg)
 
@@ -104,7 +103,7 @@ Our methodology introduces key techniques to enhance **few-shot visual grounding
 
 3. **Contrastive Learning**: This loss function improves class differentiation by maximizing inter-class differences and minimizing intra-class variations, making the model more robust in distinguishing between same-class and different-class templates.
 
-These innovations collectively improve the model's generalization ability, particularly in **few-shot learning** scenarios. 
+These methods work together to improve the model's ability to generalize, particularly in **few-shot learning** scenarios, by effectively **leveraging multimodal data and enhancing class differentiation**.
 
 
 ## Datasets
