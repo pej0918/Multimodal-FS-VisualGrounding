@@ -92,10 +92,21 @@ The core architecture builds on **Dynamic MDETR** (Dynamic Multimodal Transforme
 
 ![Architecture](./images/model.jpg)
 
-### Key Modules:
-1. **Multimodal Prompt**: Combines image, text, and learnable embeddings for the template-based few-shot grounding.
-2. **Cross-Attention Mechanism**: Applies between image and text to improve template fusion.
-3. **Contrastive Loss**: Enhances the distinction between same-class and different-class templates.
+The **Multimodal Few-shot Visual Grounding Model** enhances the **Dynamic MDETR** architecture, specifically designed to handle few-shot learning tasks without requiring fine-tuning. The model addresses the challenge of generalizing to unseen classes by integrating multimodal prompts, cross-attention mechanisms, and contrastive learning to improve visual grounding performance.
+
+### Architecture Overview
+The model consists of a **visual encoder** (ResNet-50) and a **text encoder** (BERT), which extract features from the image and corresponding text descriptions. These features are fused in a **multimodal transformer** using a **cross-attention fusion module** that strengthens the interaction between visual and textual information. 
+
+A key innovation of the model is the use of **templates** paired with **learnable embeddings**, which are dynamically adapted during training. This enables the model to learn more discriminative features and effectively recognize objects, even with limited examples. Additionally, the use of **contrastive loss** helps the model better differentiate between same-class and different-class templates, refining its learning process for unseen data.
+
+### Key Contributions
+- **Multimodal Prompt Design**: The model introduces template-based multimodal prompts that combine image features, text features, and learnable embeddings, significantly enhancing the model's few-shot learning capabilities.
+- **Cross-attention Fusion Module**: The cross-attention mechanism enables stronger interaction between the image and text features, improving the integration of multimodal information.
+- **Contrastive Learning**: The contrastive loss ensures better separation between different-class templates while reinforcing intra-class similarity, allowing the model to generalize more effectively to unseen classes.
+- **Few-shot Visual Grounding without Fine-tuning**: The model achieves superior performance in few-shot scenarios without requiring any additional fine-tuning, demonstrating its ability to handle new classes with minimal data.
+
+This architecture and its contributions enable the model to achieve state-of-the-art performance on few-shot visual grounding tasks, providing a robust solution for scenarios with limited training data.
+
 
 ## Methodology
 
