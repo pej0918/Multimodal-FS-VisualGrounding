@@ -7,6 +7,7 @@ This repository provides the code and experimental results for **Multimodal Few-
 - [Introduction](#introduction)
 - [Framework](#framework)
 - [Methodology](#methodology)
+- [Dataset](#Datasets)
 - [Evaluation](#evaluation)
 - [Results](#results)
 - [Conclusion](#conclusion)
@@ -106,21 +107,21 @@ Our methodology introduces several key components for improving few-shot visual 
 ### Loss Function:
 We apply **contrastive loss** to maximize inter-class variability and minimize intra-class differences for more robust feature learning.
 
-## Evaluation
-
-### Datasets
+## Datasets
 
 We utilize two main datasets for pre-training and fine-tuning the model:
 - **Pre-training Dataset**: RefCOCO, Flickr30k
 - **Fine-tuning Dataset**: RefCOCOg
 
-#### Dataset Statistics
+### Dataset Statistics
 | Dataset       | #Images  | #Refer Expressions | Train Classes | Eval Classes |
 |---------------|----------|--------------------|---------------|--------------|
 | RefCOCO       | 19,994   | 142,209            | 70            | 10           |
 | Flickr30k     | 31,000   | 5 refer/image      | -             | -            |
 | RefCOCOg      | 25,799   | 142,209            | 70            | 10           |
 
+
+## Evaluation
 We performed two primary evaluations:
 1. **Template-based Performance Evaluation**: Analyzing the effect of including templates (support set) with different architectures, including **Dynamic MDETR**.
 2. **Unseen Class Evaluation**: Evaluating model generalization on unseen classes using fusion and contrastive loss.
