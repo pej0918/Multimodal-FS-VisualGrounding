@@ -1,6 +1,6 @@
 # Multimodal Few-shot Visual Grounding without Fine-tuning
 
-We propose a model for  **Multimodal Few-shot Visual Grounding** without the need for fine-tuning. The proposed model architecture introduces an effective method for visual grounding using **few-shot learning** with the **Dynamic MDETR** model and enhances its performance using **multimodal prompts**, **cross-attention**, and **contrastive loss**.
+We propose a model architecture for  **Multimodal Few-shot Visual Grounding without the need for fine-tuning**. The proposed model architecture introduces an effective method for visual grounding using **few-shot learning** with the **Dynamic MDETR** model and enhances its performance using **multimodal prompts**, **cross-attention**, and **contrastive loss**.
 
 ## Table of Contents
 
