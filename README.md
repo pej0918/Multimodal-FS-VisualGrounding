@@ -66,7 +66,7 @@ In the second experiment, we evaluated few-shot visual grounding performance on 
 
 ### 7. Visual Results:
 
-Below are the visualization results showing the model's predictions and the ground truth for few-shot visual grounding tasks.
+Below are the visualization results showing the model's predictions and the ground truth for few-shot visual grounding tasks. They demonstrate the effectiveness of our Multimodal Few-shot Visual Grounding model:
 <p align="center">
   <img src="./images/visualization1.jpg" alt="Visualization 1" width="250"/>
   <img src="./images/visualization2.jpg" alt="Visualization 2" width="250"/>
