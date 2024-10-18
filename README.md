@@ -1,149 +1,59 @@
 # Multimodal Few-shot Visual Grounding without Fine-tuning
 
-We propose a model architecture for  **Multimodal Few-shot Visual Grounding without the need for fine-tuning**. The proposed model architecture introduces an effective method for visual grounding using **few-shot learning** with the **Dynamic MDETR** model and enhances its performance using **multimodal prompts**, **cross-attention**, and **contrastive loss**.
+We propose a **Multimodal Few-shot Visual Grounding** model architecture that eliminates the need for fine-tuning. By enhancing the **Dynamic MDETR** model with **multimodal prompts**, **cross-attention fusion**, and **contrastive loss**, the proposed approach improves visual grounding performance, especially in few-shot scenarios.
 
-## Table of Contents
+## Model Architecture Overview
 
-- [Introduction](#introduction)
-- [Framework](#framework)
-- [Dataset](#Datasets)
-- [Evaluation](#evaluation)
-- [Results](#results)
-- [Conclusion](#conclusion)
+![Architecture](./images/model.jpg)
 
-## Introduction
+Traditional visual grounding models often require large datasets and fine-tuning for new classes, which poses limitations in few-shot learning situations. Our model tackles these challenges by integrating **multimodal prompts** and a **cross-attention fusion module**, enabling better interaction between image and text features. Additionally, **contrastive learning** is employed to maximize inter-class differences, thus improving generalization for unseen classes.
 
-Visual grounding tasks aim to identify and locate objects in images based on a given textual query. Traditional methods often require large-scale datasets and extensive fine-tuning to adapt to new classes or domains, which limits their effectiveness in **few-shot learning** scenarios.
+### Key Improvements in Our Model:
+1. **Multimodal Prompts**: Each prompt combines image features, text features, and a learnable embedding for enriched context.
+2. **Cross-Attention Fusion Module**: This component enhances interactions between image and text modalities, improving the grounding precision.
+3. **Contrastive Loss**: By maximizing inter-class differences and minimizing intra-class variations, contrastive loss refines template-based visual grounding.
 
-Our approach addresses these limitations by introducing a model that enables **few-shot visual grounding** without fine-tuning. The proposed architecture incorporates **multimodal prompts**, combining visual and textual features with **learnable embeddings**. Additionally, we use **cross-attention mechanisms** to enhance the interaction between image and text data, and **contrastive learning** to improve the differentiation between different-class templates, leading to better generalization to unseen classes.
+### Advantages of Our Model:
+- **Fine-tuning Free**: No need for extensive fine-tuning on new classes.
+- **Few-shot Learning**: Effectively adapts to unseen classes with minimal data.
+- **Improved Generalization**: The combination of multimodal prompts, cross-attention, and contrastive learning boosts performance on both familiar and unseen tasks.
 
-Our model not only reduces the need for data-intensive fine-tuning but also significantly improves performance in both familiar and unseen visual grounding tasks. 
+## Experiment Results
 
-
-<details>
-   <summary>Training</summary>
-
-## Requirement
-
-```shell
+### 1. Environment Setup
+```bash
 conda create -n dynamic-mdetr python=3.10
 conda activate dynamic-mdetr
 bash install.txt
 ```
 
-## Getting Started
+### 2. Dataset Preparation
+Please refer to [GETTING_STARTED.md](docs/GETTING_STARTED.md) for details on dataset preparation and pretrained checkpoints.
 
-Please refer to [GETTING_STARGTED.md](docs/GETTING_STARTED.md) to learn how to prepare the datasets and pretrained checkpoints.
-
-## Training
-
-[Checkpoints](https://drive.google.com/drive/folders/1stGPq4Sz_Vu60QliUzey8m6iYXrrF3Ua?usp=drive_link)
-
-```shell
+### 3. Training the Model
+```bash
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-# refcocog-g
-python -m torch.distributed.launch --nproc_per_node=8 --use_env train.py --model_type ResNet --batch_size 16 --lr_bert 0.00001 --aug_crop --aug_scale --aug_translate --backbone resnet50 --pretrained_model ./checkpoints/best_checkpoint.pth  --bert_enc_num 12 --detr_enc_num 6 --dataset gref --max_query_len 40 --output_dir outputs/refcocog_gsplit_r50 --stages 3 --vl_fusion_enc_layers 3 --uniform_learnable True --in_points 36 --lr 1e-4 --different_transformer True --lr_drop 60 --vl_dec_layers 1 --vl_enc_layers 1 --clip_max_norm 1.0
+python -m torch.distributed.launch --nproc_per_node=8 --use_env train.py --model_type ResNet --batch_size 16 --lr_bert 0.00001 --aug_crop --aug_scale --aug_translate --backbone resnet50 --pretrained_model ./checkpoints/best_checkpoint.pth --bert_enc_num 12 --detr_enc_num 6 --dataset gref --max_query_len 40 --output_dir outputs/refcocog_gsplit_r50 --stages 3 --vl_fusion_enc_layers 3 --uniform_learnable True --in_points 36 --lr 1e-4 --different_transformer True --lr_drop 60 --vl_dec_layers 1 --vl_enc_layers 1 --clip_max_norm 1.0
 ```
-## Eval
 
-```shell
+### 4. Evaluation
+```bash
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-# refcocog-g
 python -m torch.distributed.launch --nproc_per_node=8 --use_env eval.py --model_type ResNet --batch_size 16 --backbone resnet50 --bert_enc_num 12 --detr_enc_num 6 --dataset gref --max_query_len 40 --output_dir outputs/refcocog_gsplit_r50 --stages 3 --vl_fusion_enc_layers 3 --uniform_learnable True --in_points 36 --lr 1e-4 --different_transformer True --lr_drop 60 --vl_dec_layers 1 --vl_enc_layers 1 --eval_model outputs/refcocog_gsplit_r50/best_checkpoint.pth --eval_set val
-
-
 ```
 
-## Inference 
-
-```shell
-!python -m torch.distributed.launch --nproc_per_node=1 --use_env inference.py \
-  --model_type ResNet \
-  --batch_size 8 \
-  --backbone resnet50 \
-  --bert_enc_num 12 \
-  --detr_enc_num 6 \
-  --dataset gref \
-  --max_query_len 40 \
-  --output_dir outputs/refcocog_gsplit_r50/inference \
-  --stages 3 \
-  --vl_fusion_enc_layers 3 \
-  --uniform_learnable True \
-  --in_points 36 \
-  --lr 1e-4 \
-  --different_transformer True \
-  --eval_model ./checkpoints/best_checkpoint_5.pth \
-  --eval_set val \
-```
-
-</details>
-
-## Framework
-For **Few-shot Visual Grounding**, we introduce a model architecture built on **Dynamic MDETR** that integrates:
-- **Multimodal Prompts**: Each template is composed of image features, text features, and a learnable embedding.
-- **Cross-Attention Fusion Module**: This module allows for stronger interaction between the image and text modalities through bidirectional cross-attention.
-- **Contrastive Loss**: Helps to maximize the difference between different-class templates and minimize intra-class template differences, further improving few-shot generalization.
-
-### Overview
-
-![Architecture](./images/model.jpg)
-
-The proposed model is designed for **few-shot visual grounding**, leveraging **multimodal prompts** that combine visual and textual features with learnable embeddings. It builds on the **Dynamic MDETR** architecture, with enhancements like **cross-attention fusion** and **contrastive learning**. These innovations allow the model to generalize effectively to unseen classes without requiring fine-tuning.
-
-**Multimodal prompts** are created using image features, text features, and learnable embeddings, which provide additional context for grounding. A **cross-attention fusion module** strengthens the interaction between the image and text, while **contrastive learning** further differentiates between classes to improve accuracy.
-
-
-### Methodology
-
-Our methodology introduces key techniques to enhance **few-shot visual grounding** performance. The core components include:
-
-1. **Multimodal Prompt Generation**: We generate prompts by combining visual and textual features with learnable embeddings, allowing the model to leverage richer information during grounding tasks.
-  
-2. **Cross-Attention Fusion**: This module applies cross-attention between the image and text features, enhancing the integration of multimodal data to ensure more precise grounding.
-
-3. **Contrastive Learning**: This loss function improves class differentiation by maximizing inter-class differences and minimizing intra-class variations, making the model more robust in distinguishing between same-class and different-class templates.
-
-These methods work together to improve the model's ability to generalize, particularly in **few-shot learning** scenarios, by effectively **leveraging multimodal data and enhancing class differentiation**.
-
-
-## Datasets
-
-We utilize two main datasets for pre-training and fine-tuning the model:
-- **Pre-training Dataset**: RefCOCO, Flickr30k
-- **Fine-tuning Dataset**: RefCOCOg
-
-### Dataset Statistics
-| Dataset       | #Images  | #Refer Expressions | Train Classes | Eval Classes |
-|---------------|----------|--------------------|---------------|--------------|
-| RefCOCO       | 19,994   | 142,209            | 70            | 10           |
-| Flickr30k     | 31,000   | 5 refer/image      | -             | -            |
-| RefCOCOg      | 25,799   | 142,209            | 70            | 10           |
-
-
-## Evaluation
-We performed two primary evaluations:
-1. **Template-based Performance Evaluation**: Analyzing the effect of including templates (support set) with different architectures, including **Dynamic MDETR**.
-2. **Unseen Class Evaluation**: Evaluating model generalization on unseen classes using fusion and contrastive loss.
-
-
-#### Impact of Template on Performance (RefCOCOg)
+### 5. Results on RefCOCOg
 
 | Methods                          | Backbone  | Support Set | Accuracy |
 |-----------------------------------|-----------|-------------|----------|
 | TransVG                          | ResNet-101| No          | 67.02%   |
-| TransVG                          | ResNet-50 | No          | 66.56%   |
-| TransVG++                        | ResNet-50 | No          | 73.86%   |
 | GroundVLP                        | Vin-VL    | No          | 74.73%   |
 | Dynamic MDETR                    | ResNet-50 | No          | 69.43%   |
 | **Dynamic MDETR + FS-learnable embedding (ours)** | ResNet-50 | Yes        | **83.6%** |
 
-The first experiment compares our **Dynamic MDETR + FS-learnable embedding** model with other visual grounding models. Our model, utilizing ResNet-50, achieves **83.6% accuracy**, significantly outperforming existing methods like **TransVG** and **GroundVLP**. 
+Our model outperformed other baseline models like **TransVG** and **GroundVLP**, achieving **83.6% accuracy**, a significant improvement over other methods without fine-tuning. The integration of **learnable embeddings** and **multimodal prompts** enabled richer visual and textual feature learning, thereby improving grounding precision.
 
-Compared to **TransVG (ResNet-50)**, which recorded **66.56% accuracy**, our model achieved a **17% improvement**, indicating the effectiveness of incorporating **template-based support sets**. The use of **learnable embeddings** allowed our model to capture more fine-grained details, enhancing its performance by reducing confusion between similar classes.
-
-The introduction of **templates** enabled richer visual information to be learned, improving the model’s ability to distinguish between classes. This experiment demonstrates the critical role of templates in enhancing model performance for few-shot learning.
-
-#### Few-shot Visual Grounding on Unseen Data
+### 6. Results on Unseen Classes
 
 | Methods                       | Backbone  | Acc@50 | AP@50   |
 |--------------------------------|-----------|----------|------|
@@ -152,20 +62,9 @@ The introduction of **templates** enabled richer visual information to be learne
 | Ours + Contrastive Loss (CI)   | ResNet-50 | 0.38 (+0.08) | 0.60 (+0.07) |
 | Ours + Fu + CI                 | ResNet-50 | **0.39** (+0.09) | **0.60** (+0.07) |
 
-In the second experiment, we evaluated the **few-shot visual grounding performance on unseen data**. Without any additional modules, our base model achieved **0.30 accuracy** and **0.53 AP**. 
+In the second experiment, we evaluated few-shot visual grounding performance on unseen data. The inclusion of the **Fusion Module** and **Contrastive Loss** significantly improved accuracy and AP, demonstrating the model's capability to generalize effectively without fine-tuning.
 
-However, when incorporating the **Fusion Module (Fu)**, the accuracy increased by **9%** to **0.39**, and AP improved by **5%** to **0.58**. The Fusion Module enhances the interaction between templates, making information sharing more effective.
-
-With the addition of **Contrastive Loss (CI)**, accuracy and AP further improved to **0.38 and 0.60**, respectively. Contrastive Loss helps the model better distinguish between different-class templates while refining intra-class variations.
-
-When combining both **Fusion Module and Contrastive Loss**, our model achieved the best results with **0.39 accuracy** and **0.60 AP**. This indicates that the combination of these components significantly improves the model's ability to generalize to unseen classes.
-
-## Results
-These experiments validate the effectiveness of our proposed **template-based multimodal prompt** and **learnable embeddings** in improving visual grounding performance. The **Fusion Module** and **Contrastive Loss** play crucial roles in enhancing the interaction between visual and textual information, leading to better generalization, especially for unseen classes.
-
-The model achieves a significant improvement in both accuracy and AP with the introduction of the **Fusion Module** and **Contrastive Loss**. The few-shot visual grounding performance is highly enhanced on unseen data with up to **9% increase in accuracy** and **7% increase in AP**.
-
-### Visual Results:
+### 7. Visual Results:
 
 Below are the visualization results showing the model's predictions and the ground truth for few-shot visual grounding tasks.
 <p align="center">
@@ -174,8 +73,19 @@ Below are the visualization results showing the model's predictions and the grou
   <img src="./images/visualization3.jpg" alt="Visualization 2" width="300"/>
 </p>
 
+
 ## Conclusion
-The proposed **few-shot visual grounding** model successfully addresses the challenges of traditional visual grounding by introducing a **multimodal prompt** mechanism, integrating **learnable embeddings**, and enhancing multimodal interaction through **cross-attention**. Additionally, the use of **contrastive learning** further refines class differentiation, improving the model's ability to generalize to unseen classes.
 
-Experimental results demonstrate significant improvements in accuracy, especially on **unseen classes**, validating the effectiveness of the proposed architecture. This model offers a robust solution for **few-shot learning** tasks, showcasing potential applications in real-world scenarios with limited data, without the need for extensive fine-tuning.
+Our **Multimodal Few-shot Visual Grounding** model, without the need for fine-tuning, leverages **multimodal prompts**, **cross-attention**, and **contrastive learning** to achieve state-of-the-art performance in visual grounding tasks. The experimental results confirm the effectiveness of our approach in enhancing generalization and improving performance on unseen classes.
 
+## References
+
+```
+@InProceedings{Kamath_2021_CVPR,
+    author    = {Kamath, Aishwarya and Singh, Mannat and LeCun, Yann and Carion, Nicolas},
+    title     = {Dynamic DETR: Few-Shot Detection Transformer},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    year      = {2021},
+    pages     = {9747-9756}
+}
+```
