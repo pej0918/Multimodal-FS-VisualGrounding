@@ -6,17 +6,7 @@ We propose a **Multimodal Few-shot Visual Grounding** model architecture that el
 
 ![Architecture](./images/model.jpg)
 
-Traditional visual grounding models often require large datasets and fine-tuning for new classes, which poses limitations in few-shot learning situations. Our model tackles these challenges by integrating **multimodal prompts** and a **cross-attention fusion module**, enabling better interaction between image and text features. Additionally, **contrastive learning** is employed to maximize inter-class differences, thus improving generalization for unseen classes.
-
-### Key Improvements in Our Model:
-1. **Multimodal Prompts**: Each prompt combines image features, text features, and a learnable embedding for enriched context.
-2. **Cross-Attention Fusion Module**: This component enhances interactions between image and text modalities, improving the grounding precision.
-3. **Contrastive Loss**: By maximizing inter-class differences and minimizing intra-class variations, contrastive loss refines template-based visual grounding.
-
-### Advantages of Our Model:
-- **Fine-tuning Free**: No need for extensive fine-tuning on new classes.
-- **Few-shot Learning**: Effectively adapts to unseen classes with minimal data.
-- **Improved Generalization**: The combination of multimodal prompts, cross-attention, and contrastive learning boosts performance on both familiar and unseen tasks.
+Traditional visual grounding models often require large datasets and fine-tuning for new classes, which poses limitations in few-shot learning situations. Our model tackles these challenges by introducing **multimodal prompts** that combine image and text features with **learnable embeddings**, which are then processed through a **cross-attention fusion module**. This mechanism strengthens the interaction between image and text, ensuring better integration of multimodal data. Additionally, **contrastive learning** is employed to enhance class differentiation by maximizing inter-class variability and minimizing intra-class similarity, leading to better generalization for unseen classes. Together, these improvements allow the model to effectively generalize to new tasks without the need for extensive fine-tuning
 
 ## Experiment Results
 
@@ -43,6 +33,7 @@ python -m torch.distributed.launch --nproc_per_node=8 --use_env eval.py --model_
 ```
 
 ### 5. Results on RefCOCOg
+This experiment aimed to evaluate the impact of incorporating templates into the visual grounding process. By comparing our model’s performance on the RefCOCOg dataset with and without templates, we demonstrate **the effectiveness of template-based multimodal prompts and learnable embeddings** in improving accuracy.
 
 | Methods                          | Backbone  | Support Set | Accuracy |
 |-----------------------------------|-----------|-------------|----------|
@@ -55,6 +46,7 @@ Our model outperformed other baseline models like **TransVG** and **GroundVLP**,
 
 ### 6. Results on Unseen Classes
 
+This experiment focused on testing **the model’s generalization capabilities on unseen classes**. By incorporating **Fusion Module** and **Contrastive Loss**, we aimed to evaluate whether the model could effectively adapt to novel classes with minimal data in few-shot visual grounding tasks.
 | Methods                       | Backbone  | Acc@50 | AP@50   |
 |--------------------------------|-----------|----------|------|
 | Ours                           | ResNet-50 | 0.30     | 0.53 |
@@ -66,11 +58,16 @@ In the second experiment, we evaluated few-shot visual grounding performance on 
 
 ### 7. Visual Results:
 
-Below are the visualization results showing the model's predictions and the ground truth for few-shot visual grounding tasks. They demonstrate the effectiveness of our Multimodal Few-shot Visual Grounding model:
+Below are the visualization results showing the model's predictions and the ground truth for few-shot visual grounding tasks. They demonstrate the effectiveness of our Multimodal Few-shot Visual Grounding model in accurately localizing objects, including the Hachuping character, which further validates the model’s ability to generalize across diverse and unseen data. 
 <p align="center">
   <img src="./images/visualization1.jpg" alt="Visualization 1" width="250"/>
   <img src="./images/visualization2.jpg" alt="Visualization 2" width="250"/>
   <img src="./images/visualization3.jpg" alt="Visualization 2" width="250"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/79320f85-cfeb-4e90-b019-1211dad9ce98" alt="Visualization_ha1" width="300"/>
+  <img src="https://github.com/user-attachments/assets/70e5b5a6-11d5-46a7-9a3c-08243f8626b7"  alt="Visualization_ha2" width="300"/>
 </p>
 
 
