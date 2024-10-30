@@ -43,7 +43,7 @@ Please refer to [GETTING_STARTED.md](docs/GETTING_STARTED.md) for details on dat
 ### 3. Training the Model
 ```bash
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-python -m torch.distributed.launch --nproc_per_node=8 --use_env train.py --model_type ResNet --batch_size 16 --lr_bert 0.00001 --aug_crop --aug_scale --aug_translate --backbone resnet50 --pretrained_model ./checkpoints/best_checkpoint.pth --bert_enc_num 12 --detr_enc_num 6 --dataset gref --max_query_len 40 --output_dir outputs/refcocog_gsplit_r50 --stages 3 --vl_fusion_enc_layers 3 --uniform_learnable True --in_points 36 --lr 1e-4 --different_transformer True --lr_drop 60 --vl_dec_layers 1 --vl_enc_layers 1 --clip_max_norm 1.0
+python -m torch.distributed.launch --nproc_per_node=1 --use_env train.py --weight_contrast 0.2 --use_cross_attention 1 --contrastive_loss 1 --cropped_templates 0 --category_file_path ./path/to/coco_80.txt --pretrained_model /path/to/pretrained model --model_type ResNet --batch_size 16 --lr_bert 0.00001 --aug_crop --aug_scale --aug_translate --backbone resnet50 --bert_enc_num 12 --detr_enc_num 6 --dataset gref --max_query_len 40 --output_dir outputs/flickr_r50 --stages 3 --vl_fusion_enc_layers 3 --uniform_learnable True --in_points 36 --lr 1e-4 --different_transformer True --epochs 10 --lr_drop 60  --vl_dec_layers 1 --vl_enc_layers 1 --clip_max_norm 1.0
 ```
 
 ### 4. Evaluation
@@ -52,7 +52,36 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 python -m torch.distributed.launch --nproc_per_node=8 --use_env eval.py --model_type ResNet --batch_size 16 --backbone resnet50 --bert_enc_num 12 --detr_enc_num 6 --dataset gref --max_query_len 40 --output_dir outputs/refcocog_gsplit_r50 --stages 3 --vl_fusion_enc_layers 3 --uniform_learnable True --in_points 36 --lr 1e-4 --different_transformer True --lr_drop 60 --vl_dec_layers 1 --vl_enc_layers 1 --eval_model outputs/refcocog_gsplit_r50/best_checkpoint.pth --eval_set val
 ```
 
-### 5. Results on RefCOCOg
+### 5. Inference
+```bash
+!python -m torch.distributed.launch --nproc_per_node=1 --use_env inference.py \
+  --model_type ResNet \
+  --batch_size 1 \
+  --backbone resnet50 \
+  --bert_enc_num 12 \
+  --detr_enc_num 6 \
+  --dataset hachuping \
+  --max_query_len 40 \
+  --output_dir outputs/refcocog_gsplit_r50/inference \
+  --stages 3 \
+  --vl_fusion_enc_layers 3 \
+  --uniform_learnable True \
+  --in_points 36 \
+  --lr 1e-4 \
+  --different_transformer True \
+  --data_root /content/drive/MyDrive/fsod/train \
+  --eval_model ./path/to/your model \
+  --category_file_path /path/to/your cateogry \
+  --num_templates 3 \
+  --template_classes 3 \
+  --use_cross_attention 1 \
+  --cropped_templates 0 \
+  --vl_dec_layers 1 \
+  --vl_enc_layers 1 \
+  --eval_set val
+```
+
+### 6. Results on RefCOCOg
 To evaluate the influence of **templates** and **multimodal prompts**, we conducted experiments on the RefCOCOg dataset. The goal was to analyze how the incorporation of templates impacts the model’s visual grounding performance.
 
 | Methods                          | Backbone  | Support Set | Accuracy |
@@ -65,7 +94,7 @@ To evaluate the influence of **templates** and **multimodal prompts**, we conduc
 Our model outperformed other baseline models like **TransVG** and **GroundVLP**, achieving **83.6% accuracy**, a significant improvement over other methods without fine-tuning. The integration of **learnable embeddings** and **multimodal prompts** enabled richer visual and textual feature learning, thereby improving grounding precision.
 Our model demonstrates a significant improvement in accuracy, achieving **83.6%**, validating the effectiveness of using **learnable embeddings** and **multimodal prompts**.
 
-### 6. Results on Unseen Classes
+### 7. Results on Unseen Classes
 
 This experiment focused on assessing the model’s generalization to unseen classes in a few-shot learning context.
 
@@ -78,7 +107,7 @@ This experiment focused on assessing the model’s generalization to unseen clas
 
 Incorporating **Fusion Module** and **Contrastive Loss** led to a significant improvement in both accuracy and AP, confirming the model’s ability to generalize without the need for fine-tuning.
 
-### 7. Visual Results:
+### 8. Visual Results:
 
 Below are the visualization results showing the model's predictions and the ground truth for few-shot visual grounding tasks. They demonstrate the effectiveness of our **Multimodal Few-shot Visual Grounding** model in accurately localizing objects, which further validates the model’s ability to generalize across diverse and unseen data. 
 <p align="center">
