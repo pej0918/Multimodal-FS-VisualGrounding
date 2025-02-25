@@ -8,7 +8,7 @@ We propose a **Multimodal Few-shot Visual Grounding** model architecture that el
 
 The architecture integrates **Multimodal Prompts** combining text, image, and learnable embeddings, as shown in the above figure. Each template provides visual and textual features, further enhanced by a fusion module. Cross-attention mechanisms applied within the fusion module ensure stronger interactions between the two modalities.
 
-Key improvements in our model include:
+🔥 Key improvements in our model include:
 
 - **Multimodal Prompts**: Combining image and text embeddings with a learnable embedding, enabling the model to better capture context and meaning.
 - **Cross-Attention Fusion**: The cross-attention fusion module strengthens interactions between image and text modalities, allowing for better multimodal integration.
@@ -16,14 +16,22 @@ Key improvements in our model include:
 
 ## 🧬 Methodology
 
-Our **Multimodal Few-shot Visual Grounding** model leverages **Multimodal Prompts**, **Cross-Attention Fusion**, and **Contrastive Learning** to enhance performance, especially in few-shot settings. Each component is tailored to support generalization without requiring fine-tuning. This approach integrates **multimodal prompts with cross-class templates**, **inter-modal cross-attention**, and **contrastive learning** to create a robust model for few-shot visual grounding. By enabling adaptability and strong generalization capabilities without the need for fine-tuning, our model is well-suited for diverse classes and contexts.
+This approach integrates **multimodal prompts with cross-class templates**, **inter-modal cross-attention**, and **contrastive learning** to create a robust model for few-shot visual grounding. By enabling adaptability and strong generalization capabilities without the need for fine-tuning, our model is well-suited for diverse classes and contexts.
 ![Multimodal Prompt with Learnable Embedding](https://github.com/user-attachments/assets/1d5db23c-86fd-4cff-8a60-c90553d8860f)
 
-1️⃣ **Multimodal Prompt Generation**: Combines visual and textual features with a Learnable Embedding, incorporating templates from both the target and different classes. This strategy helps the model distinguish between classes effectively, enhancing generalization with minimal data.
+### 1️⃣ **Multimodal Prompt Generation**
+![image](https://github.com/user-attachments/assets/b12147fb-13be-42d4-838d-bca314b677cd)
 
-2️⃣ **Cross-Attention Fusion**:  Applies bidirectional cross-attention (image-to-text and text-to-image) to strengthen multimodal integration, enabling the model to focus on complementary features across modalities.
+Combines visual and textual features with a Learnable Embedding, incorporating templates from both the target and different classes. This strategy helps the model distinguish between classes effectively, enhancing generalization with minimal data.
 
-3️⃣ **Contrastive Learning**: Improves class differentiation by maximizing inter-class separation and minimizing intra-class variation, ensuring robust performance even on unseen classes.
+### 2️⃣ **Cross-Attention Fusion**
+![image](https://github.com/user-attachments/assets/9f8533c3-52cb-45fb-ad21-2657ed625ce9)
+Applies bidirectional cross-attention (image-to-text and text-to-image) to strengthen multimodal integration, enabling the model to focus on complementary features across modalities.
+
+### 3️⃣ **Contrastive Learning**
+![image](https://github.com/user-attachments/assets/21a80df6-1c38-4800-aec4-c0f8231a2dd5)
+
+Improves class differentiation by maximizing inter-class separation and minimizing intra-class variation, ensuring robust performance even on unseen classes.
 
 
 ## 🚀 Usage
