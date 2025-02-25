@@ -16,7 +16,8 @@ Key improvements in our model include:
 
 ## 🧬 Methodology
 
-Our **Multimodal Few-shot Visual Grounding** model leverages **Multimodal Prompts**, **Cross-Attention Fusion**, and **Contrastive Learning** to enhance performance, especially in few-shot settings. Each component is tailored to support generalization without requiring fine-tuning.
+Our **Multimodal Few-shot Visual Grounding** model leverages **Multimodal Prompts**, **Cross-Attention Fusion**, and **Contrastive Learning** to enhance performance, especially in few-shot settings. Each component is tailored to support generalization without requiring fine-tuning. This approach integrates **multimodal prompts with cross-class templates**, **inter-modal cross-attention**, and **contrastive learning** to create a robust model for few-shot visual grounding. By enabling adaptability and strong generalization capabilities without the need for fine-tuning, our model is well-suited for diverse classes and contexts.
+![Multimodal Prompt with Learnable Embedding](https://github.com/user-attachments/assets/1d5db23c-86fd-4cff-8a60-c90553d8860f)
 
 1️⃣ **Multimodal Prompt Generation**: Combines visual and textual features with a Learnable Embedding, incorporating templates from both the target and different classes. This strategy helps the model distinguish between classes effectively, enhancing generalization with minimal data.
 
@@ -24,9 +25,6 @@ Our **Multimodal Few-shot Visual Grounding** model leverages **Multimodal Prompt
 
 3️⃣ **Contrastive Learning**: Improves class differentiation by maximizing inter-class separation and minimizing intra-class variation, ensuring robust performance even on unseen classes.
 
-![Multimodal Prompt with Learnable Embedding](https://github.com/user-attachments/assets/1d5db23c-86fd-4cff-8a60-c90553d8860f)
-
-This approach integrates **multimodal prompts with cross-class templates**, **inter-modal cross-attention**, and **contrastive learning** to create a robust model for few-shot visual grounding. By enabling adaptability and strong generalization capabilities without the need for fine-tuning, our model is well-suited for diverse classes and contexts.
 
 ## 🚀 Usage
 
