@@ -18,11 +18,11 @@ Key improvements in our model include:
 
 Our **Multimodal Few-shot Visual Grounding** model leverages **Multimodal Prompts**, **Cross-Attention Fusion**, and **Contrastive Learning** to enhance performance, especially in few-shot settings. Each component is tailored to support generalization without requiring fine-tuning.
 
-1️⃣ **Multimodal Prompt Generation**: To enrich the context, our prompts combine visual and textual features with a **Learnable Embedding**. The visual and text encoders process each template’s image and description, while the learnable embedding provides adaptability across classes. Additionally, the prompts include templates not only from the target class but also from **different classes**. This helps the model learn clear distinctions between classes, improving its ability to generalize in few-shot scenarios.
+1️⃣ **Multimodal Prompt Generation**: Combines visual and textual features with a Learnable Embedding, incorporating templates from both the target and different classes. This strategy helps the model distinguish between classes effectively, enhancing generalization with minimal data.
 
-2️⃣ **Cross-Attention Fusion**: This module applies **inter-modal cross-attention** between image and text features in both directions—**image-to-text** and **text-to-image**—allowing for a more cohesive multimodal representation. This bidirectional interaction enables the model to focus on and integrate complementary information from both modalities, helping it understand essential features across various contexts.
+2️⃣ **Cross-Attention Fusion**:  Applies bidirectional cross-attention (image-to-text and text-to-image) to strengthen multimodal integration, enabling the model to focus on complementary features across modalities.
 
-3️⃣ **Contrastive Learning**: To further refine class differentiation, contrastive learning maximizes inter-class separation and minimizes intra-class variation. Positive pairs (same class) are brought closer together, while negative pairs (different classes) are pushed apart in the feature space. This setup, particularly effective in few-shot settings, enables the model to generalize to unseen classes by embedding distinctive characteristics of each class.
+3️⃣ **Contrastive Learning**: Improves class differentiation by maximizing inter-class separation and minimizing intra-class variation, ensuring robust performance even on unseen classes.
 
 ![Multimodal Prompt with Learnable Embedding](https://github.com/user-attachments/assets/1d5db23c-86fd-4cff-8a60-c90553d8860f)
 
