@@ -86,7 +86,7 @@ python -m torch.distributed.launch --nproc_per_node=8 --use_env eval.py --model_
   --eval_set val
 ```
 ## 📈 Results
-## Results on RefCOCOg
+### Results on RefCOCOg
 To evaluate the influence of **templates** and **multimodal prompts**, we conducted experiments on the RefCOCOg dataset. The goal was to analyze how the incorporation of templates impacts the model’s visual grounding performance.
 
 | Methods                          | Backbone  | Support Set | Accuracy |
