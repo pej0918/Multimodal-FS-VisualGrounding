@@ -11,7 +11,7 @@ The architecture integrates **Multimodal Prompts** combining text, image, and le
 🔥 Key improvements in our model include:
 
 - **Multimodal Prompts**: Combining image and text embeddings with a learnable embedding, enabling the model to better capture context and meaning.
-- **Cross-Attention Fusion**: The cross-attention fusion module strengthens interactions between image and text modalities, allowing for better multimodal integration.
+- **Bidirectional Cross-Attention Fusion**: The bidirectional cross-attention fusion module strengthens interactions between image and text modalities, allowing for better multimodal integration, compared original cross-attention.
 - **Contrastive Loss**: By maximizing inter-class differences and minimizing intra-class variations, contrastive loss further refines the grounding results and improves generalization across unseen classes.
 
 ## 🧬 Methodology
