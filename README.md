@@ -1,5 +1,5 @@
 # Multimodal Few-shot Visual Grounding without Fine-tuning
-> 📣 Accepted at Autumn Annual Conference of IEIE, 2024.
+> 📣 Accepted at **Autumn Annual Conference of IEIE**, 2024.
 
 We propose a **Multimodal Few-shot Visual Grounding** model architecture that eliminates the need for fine-tuning. By enhancing the **Dynamic MDETR** model with **multimodal prompts**, **cross-attention fusion**, and **contrastive loss**, the proposed approach improves visual grounding performance, especially in few-shot scenarios.
 
