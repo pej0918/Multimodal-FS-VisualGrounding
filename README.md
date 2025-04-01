@@ -126,14 +126,6 @@ Below are the visualization results showing the model's predictions and the grou
 
 Our **Multimodal Few-shot Visual Grounding** model, without the need for fine-tuning, leverages **multimodal prompts**, **cross-attention**, and **contrastive learning** to achieve state-of-the-art performance in visual grounding tasks. The experimental results confirm the effectiveness of our approach in enhancing generalization and improving performance on unseen classes.
 
-## 📚 References
+## 🙇‍♀️ Acknowledgement
 
-```
-@InProceedings{Kamath_2021_CVPR,
-    author    = {Kamath, Aishwarya and Singh, Mannat and LeCun, Yann and Carion, Nicolas},
-    title     = {Dynamic DETR: Few-Shot Detection Transformer},
-    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    year      = {2021},
-    pages     = {9747-9756}
-}
-```
+We use [Dynamic Mdetr](https://github.com/MCG-NJU/Dynamic-MDETR) as the baseline. we are thankful to their brilliant works!😊
